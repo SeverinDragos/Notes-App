@@ -17,4 +17,10 @@ const notesData = [
 
 const categories = ["Work", "Nutrition", "Events"];
 
-export { categories, notesData };
+const colors = {
+  Work: "BurlyWood",
+  Nutrition: "Aquamarine",
+  Events: "SteelBlue",
+};
+
+export { categories, notesData, colors };
