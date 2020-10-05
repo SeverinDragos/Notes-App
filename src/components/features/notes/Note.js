@@ -4,17 +4,18 @@ import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 
 const Note = (props) => {
-  const { category, content } = props
+  const { category, content } = props;
   return (
-    <Card>
-      <Card.Header>{category}</Card.Header>
-      <Card.Body>
-        <Card.Text>
-        {content}
-        </Card.Text>
-        <Button variant="danger">Delete</Button>
-      </Card.Body>
-    </Card>
+    <>
+      <Card>
+        <Card.Header>{category}</Card.Header>
+        <Card.Body>
+          <Card.Text>{content}</Card.Text>
+          <Button variant="danger">Delete</Button>
+        </Card.Body>
+      </Card>
+      <br />
+    </>
   );
 };
 
