@@ -6,20 +6,21 @@ import NoteList from "./features/notes/NoteList";
 import Welcome from "./features/welcome/Welcome";
 
 function App() {
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState([]);
 
   const handleAddNote = useCallback(
-    (note) => () => {
-      setNotes([...notes, note])
+    (note, resetFunction) => () => {
+      setNotes([...notes, note]);
+      resetFunction();
     },
-    [setNotes, notes],
-  )
+    [setNotes, notes]
+  );
 
   return (
     <Container>
       <Welcome />
-      <NewNote handleAdd={handleAddNote}/>
-      <NoteList notes={notes}/>
+      <NewNote handleAdd={handleAddNote} />
+      <NoteList notes={notes} />
     </Container>
   );
 }

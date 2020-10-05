@@ -6,7 +6,7 @@ import { categories } from "../../../utils/data";
 const NewNote = (props) => {
   const { handleAdd } = props;
   const [displayForm, setDisplayForm] = useState(false);
-  const [content, setContent] = useState();
+  const [content, setContent] = useState("");
   const [category, setCategory] = useState(categories[0]);
 
   const displayHandler = useCallback(() => {
@@ -29,6 +29,11 @@ const NewNote = (props) => {
     [setContent]
   );
 
+  const resetState = useCallback(() => {
+    setCategory(categories[0]);
+    setContent("");
+  }, [setCategory, setContent]);
+
   const jsx = displayForm ? (
     <>
       <label>Category</label>
@@ -48,6 +53,7 @@ const NewNote = (props) => {
       <label>Text</label>
       <br />
       <textarea
+        value={content}
         style={{ width: "50%", height: "200px" }}
         onChange={handleTextAreaChange}
       ></textarea>
@@ -55,7 +61,10 @@ const NewNote = (props) => {
       <br />
       <Button
         variant="primary"
-        onClick={handleAdd({ category: category, content: content })}
+        onClick={handleAdd(
+          { category: category, content: content },
+          resetState
+        )}
       >
         Save
       </Button>
