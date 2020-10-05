@@ -15,4 +15,6 @@ const notesData = [
   },
 ];
 
-export default notesData;
+const categories = ["Work", "Nutrition", "Events"];
+
+export { categories, notesData };

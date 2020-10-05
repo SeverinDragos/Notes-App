@@ -1,8 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { Button, Container } from "react-bootstrap";
+import PropTypes from "prop-types";
+import { categories } from "../../../utils/data";
 
 const NewNote = (props) => {
+  const { handleAdd } = props;
   const [displayForm, setDisplayForm] = useState(false);
+  const [content, setContent] = useState();
+  const [category, setCategory] = useState(categories[0]);
 
   const displayHandler = useCallback(() => {
     setDisplayForm(!displayForm);
@@ -10,18 +15,31 @@ const NewNote = (props) => {
 
   const buttonText = displayForm ? "Hide" : "Add Note";
 
+  const handleSelectChange = useCallback(
+    (event) => {
+      setCategory(event.target.value);
+    },
+    [setCategory]
+  );
+
+  const handleTextAreaChange = useCallback(
+    (event) => {
+      setContent(event.target.value);
+    },
+    [setContent]
+  );
+
   const jsx = displayForm ? (
     <>
       <label>Category</label>
       <br />
-      <div class="selectdiv">
-        <select>
-          <option value="grapefruit">Grapefruit</option>
-          <option value="lime">Lime</option>
-          <option value="coconut">
-            Coconut
-          </option>
-          <option value="mango">Mango</option>
+      <div className="selectdiv">
+        <select value={category} onChange={handleSelectChange}>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
       </div>
       <br />
@@ -29,10 +47,18 @@ const NewNote = (props) => {
       <br />
       <label>Text</label>
       <br />
-      <textarea style={{ width: "60%", height: "200px" }}></textarea>
+      <textarea
+        style={{ width: "50%", height: "200px" }}
+        onChange={handleTextAreaChange}
+      ></textarea>
       <br />
       <br />
-      <Button variant="primary">Save</Button>
+      <Button
+        variant="primary"
+        onClick={handleAdd({ category: category, content: content })}
+      >
+        Save
+      </Button>
     </>
   ) : (
     ""
@@ -48,6 +74,10 @@ const NewNote = (props) => {
       <hr />
     </Container>
   );
+};
+
+NewNote.propTypes = {
+  handleAdd: PropTypes.func.isRequired,
 };
 
 export default NewNote;
