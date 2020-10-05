@@ -13,14 +13,21 @@ function App() {
       setNotes([...notes, note]);
       resetFunction();
     },
-    [setNotes, notes]
+    [notes]
+  );
+
+  const handleDeleteNote = useCallback(
+    (index) => () => {
+      setNotes(notes.filter((_, idx) => idx !== index));
+    },
+    [notes]
   );
 
   return (
     <Container>
       <Welcome />
       <NewNote handleAdd={handleAddNote} />
-      <NoteList notes={notes} />
+      <NoteList notes={notes} handleRemove={handleDeleteNote} />
     </Container>
   );
 }
